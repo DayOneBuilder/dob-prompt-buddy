@@ -1,0 +1,36 @@
+{
+  "name": "dob-prompt-buddy",
+  "version": "1.1.0",
+  "description": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
+  "author": {
+    "name": "Ben Ison",
+    "email": "ben@dayonebuilder.online",
+    "url": "https://dayonebuilder.online"
+  },
+  "homepage": "https://dayonebuilder.online/products/prompt-buddy/",
+  "repository": "https://github.com/DayOneBuilder/dob-prompt-buddy",
+  "license": "MIT",
+  "keywords": [
+    "crypto",
+    "prompts",
+    "prompt-coaching",
+    "research"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DOB Prompt Buddy",
+    "shortDescription": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
+    "longDescription": "Reusable crypto prompt-coaching skill with before-send checklists, weak-to-strong rewrites, and workflow-specific checks for token DD, wallet review, and yield scans.",
+    "developerName": "Ben Ison",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://dayonebuilder.online/products/prompt-buddy/",
+    "defaultPrompt": [
+      "Use DOB Prompt Buddy for this task.",
+      "Install dayonebuilder/dob-prompt-buddy by Ben Ison."
+    ],
+    "brandColor": "#9EF0C0"
+  }
+}

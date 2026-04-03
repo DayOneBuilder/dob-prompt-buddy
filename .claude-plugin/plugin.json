@@ -1,0 +1,12 @@
+{
+  "name": "dob-prompt-buddy",
+  "description": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Ben Ison",
+    "email": "ben@dayonebuilder.online"
+  },
+  "homepage": "https://dayonebuilder.online/products/prompt-buddy/",
+  "repository": "https://github.com/DayOneBuilder/dob-prompt-buddy",
+  "license": "MIT"
+}

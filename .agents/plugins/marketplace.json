@@ -1,0 +1,20 @@
+{
+  "name": "dayonebuilder-local",
+  "interface": {
+    "displayName": "DayOneBuilder Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "dob-prompt-buddy",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
