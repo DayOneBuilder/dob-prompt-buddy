@@ -1,7 +1,7 @@
 # DayOneBuilder Prompt Buddy by Ben Ison
 
 Observer-style prompt coach for crypto work.
-It is supposed to feel like a sidecar companion that sits beside the user, notices when the prompt is slipping, and points them to the exact fix before an agent wastes a run.
+It is a terminal sidecar/TUI that sits beside the user in the terminal, notices when the prompt is slipping, and points them to the exact fix before an agent wastes a run.
 
 - Product page: https://dayonebuilder.online/products/prompt-buddy/
 - Direct bundle: https://dayonebuilder.online/downloads/dayonebuilder-prompt-buddy-starter.zip
@@ -13,9 +13,10 @@ It is supposed to feel like a sidecar companion that sits beside the user, notic
 
 ## What is shipped right now
 
-Prompt Buddy does **not** pretend to be a full graphical on-screen pet UI yet.
+Prompt Buddy does **not** pretend to be a desktop overlay or full graphical on-screen pet UI.
 
 The real shipped slice today is:
+- a terminal sidecar/TUI MVP for typing or pasting prompts and getting an immediate intervention report
 - a local observer CLI that inspects a prompt
 - readable routing heuristics for common failure modes
 - a training pack with the exact checklists the observer should point at
@@ -28,16 +29,37 @@ That means the product direction is now:
 
 ## Quick start
 
+### Repo-local sidecar TUI
+
+```bash
+bin/sidecar-prompt-buddy.sh
+```
+
+Paste or type a multi-line prompt, then press `Ctrl-G` to analyze it.
+
+Repo-local plain one-shot:
+
+```bash
+bin/sidecar-prompt-buddy.sh --plain "review this token"
+```
+
+### Installed sidecar TUI
+
+```bash
+./install.sh
+dob-prompt-buddy sidecar
+```
+
+Installed plain one-shot:
+
+```bash
+dob-prompt-buddy sidecar --plain "review this token"
+```
+
 ### Repo-local observer
 
 ```bash
 bin/observe-prompt-buddy.sh "look at this wallet"
-```
-
-### Installed observer
-
-```bash
-dob-prompt-buddy observe "look at this wallet"
 ```
 
 ### Scaffold the starter pack
@@ -46,7 +68,7 @@ dob-prompt-buddy observe "look at this wallet"
 dob-prompt-buddy scaffold ./prompt-buddy-starter
 ```
 
-## What the observer catches
+## What the observer and sidecar catch
 
 The current heuristics look for avoidable failures such as:
 - missing concrete goal or success criteria
@@ -56,11 +78,12 @@ The current heuristics look for avoidable failures such as:
 - giant ambiguous asks that should be split or planned first
 - execution requests that should start in plan mode
 
-The output is intentionally short:
+The output is intentionally short and honest:
 - severity
-- likely failure modes
-- one nudge
-- exact local training files to open next
+- domain guess
+- likely slips
+- one concise nudge
+- exact local files/checklists to open next
 - a next-step prompt stub when useful
 
 ## The least noisy setup
@@ -109,6 +132,8 @@ After install, these are the useful commands:
 
 ```bash
 dob-prompt-buddy --help
+dob-prompt-buddy sidecar
+dob-prompt-buddy sidecar --plain "review this token"
 dob-prompt-buddy observe "review this token"
 dob-prompt-buddy scaffold ./prompt-buddy-starter
 ```
@@ -126,19 +151,27 @@ The product has to work in three ways without surprise:
 2. **Claude plugin use** with `--plugin-dir .`
 3. **Optional standalone install** when you really want a personal global copy
 
-To make that work, the skill is self-contained under `skills/dob-prompt-buddy/`. The observer CLI and training files live with the skill instead of depending on a second hidden asset copy.
+To make that work, the skill is self-contained under `skills/dob-prompt-buddy/`. The observer CLI, terminal sidecar, and training files live with the skill instead of depending on a second hidden asset copy.
 
-## Where the sidecar idea goes next
+## What this sidecar is and is not
 
-The intended long-term shape is still a visible companion / sidecar that watches the user's normal prompting flow.
+What it is:
+- a terminal sidecar/TUI you can keep beside your normal prompting flow
+- a lightweight observer that points to the smallest useful fix
+- a stdlib-only MVP that reuses the same analysis logic as the observer CLI
 
-This repo now gives that future UI something real to sit on top of:
-- intervention rules
-- routing logic
-- local training files
-- prompt stubs for common recovery paths
+What it is not:
+- a desktop overlay
+- a graphical floating pet
+- a promise that the prompt becomes "magic" once it passes the check
 
 ## Quick checks
+
+Repo-local sidecar in plain mode:
+
+```bash
+bin/sidecar-prompt-buddy.sh --plain "Analyze this wallet"
+```
 
 Repo-local observer:
 
@@ -156,4 +189,5 @@ Standalone launcher after `./install.sh`:
 
 ```bash
 ~/.local/bin/dob-prompt-buddy --help
+~/.local/bin/dob-prompt-buddy sidecar --plain "review this token"
 ```

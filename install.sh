@@ -8,14 +8,34 @@ REPO_URL="https://github.com/DayOneBuilder/dob-prompt-buddy"
 PRODUCT_URL="https://dayonebuilder.online/products/prompt-buddy/"
 SUPPORT_URL="https://checkout.dayonebuilder.online/donate/prompt-buddy"
 OBSERVE_SCRIPT="observe-prompt-buddy.py"
+SIDECAR_SCRIPT="sidecar-prompt-buddy.py"
 SCAFFOLD_SCRIPT="scaffold-prompt-buddy.sh"
 
 INSTALL_CODEX=1
 INSTALL_CLAUDE=1
 INSTALL_LAUNCHER=1
 
+usage() {
+  cat <<'HELP'
+Usage: ./install.sh [--codex-only] [--claude-only] [--no-launcher] [--help]
+
+Installs the self-contained Prompt Buddy skill into a Codex and/or Claude skills directory,
+plus an optional `dob-prompt-buddy` launcher in `~/.local/bin`.
+
+Flags:
+- --codex-only   Install only the Codex skill copy
+- --claude-only  Install only the Claude skill copy
+- --no-launcher  Skip the standalone launcher install
+- --help         Show this help text and exit
+HELP
+}
+
 while [ $# -gt 0 ]; do
   case "$1" in
+    --help|-h)
+      usage
+      exit 0
+      ;;
     --codex-only)
       INSTALL_CLAUDE=0
       ;;
@@ -27,7 +47,7 @@ while [ $# -gt 0 ]; do
       ;;
     *)
       echo "Unknown flag: $1" >&2
-      echo "Usage: ./install.sh [--codex-only|--claude-only] [--no-launcher]" >&2
+      usage >&2
       exit 1
       ;;
   esac
@@ -80,6 +100,7 @@ if [ "$INSTALL_LAUNCHER" -eq 1 ]; then
 #!/usr/bin/env bash
 set -euo pipefail
 OBSERVE_SCRIPT="observe-prompt-buddy.py"
+SIDECAR_SCRIPT="sidecar-prompt-buddy.py"
 SCAFFOLD_SCRIPT="scaffold-prompt-buddy.sh"
 SKILL_NAME="dob-prompt-buddy"
 resolve_skill_dir() {
@@ -98,10 +119,12 @@ if [ -z "$SKILL_DIR" ]; then
   exit 1
 fi
 OBSERVE_PATH="$SKILL_DIR/scripts/$OBSERVE_SCRIPT"
+SIDECAR_PATH="$SKILL_DIR/scripts/$SIDECAR_SCRIPT"
 SCAFFOLD_PATH="$SKILL_DIR/scripts/$SCAFFOLD_SCRIPT"
-if [ $# -eq 0 ] || [ "${1:-}" = "--help" ] || [ "${1:-}" = "help" ]; then
+
+print_help() {
   cat <<HELP
-DayOneBuilder Prompt Buddy by Ben Ison installed.
+DayOneBuilder Prompt Buddy by Ben Ison
 Repo: https://github.com/DayOneBuilder/dob-prompt-buddy
 Product page: https://dayonebuilder.online/products/prompt-buddy/
 Support: https://checkout.dayonebuilder.online/donate/prompt-buddy
@@ -109,13 +132,25 @@ Support: https://checkout.dayonebuilder.online/donate/prompt-buddy
 Installed skill path:
 - $SKILL_DIR
 
+This is a terminal sidecar/TUI plus observer/scaffold helpers. It is not a desktop overlay.
+
 Commands:
+- dob-prompt-buddy sidecar
+- dob-prompt-buddy sidecar --plain "<prompt>"
 - dob-prompt-buddy observe "<prompt>"
 - dob-prompt-buddy scaffold [path]
 HELP
+}
+
+if [ $# -eq 0 ] || [ "${1:-}" = "--help" ] || [ "${1:-}" = "help" ]; then
+  print_help
   exit 0
 fi
 case "${1:-}" in
+  sidecar)
+    shift
+    exec python3 "$SIDECAR_PATH" "$@"
+    ;;
   observe)
     shift
     exec python3 "$OBSERVE_PATH" "$@"
@@ -125,7 +160,10 @@ case "${1:-}" in
     exec "$SCAFFOLD_PATH" "$@"
     ;;
   *)
-    exec "$SCAFFOLD_PATH" "$@"
+    echo "Unknown command: ${1:-}" >&2
+    echo >&2
+    print_help >&2
+    exit 1
     ;;
 esac
 LAUNCHER
@@ -142,5 +180,6 @@ echo
 echo "Notes:"
 echo "- Codex repo-scoped use: launch Codex inside this repo; it auto-discovers .agents/skills/"
 echo "- Claude plugin use: launch Claude with --plugin-dir . inside this repo"
+echo "- Terminal sidecar: dob-prompt-buddy sidecar"
 echo "- Local observer: dob-prompt-buddy observe \"review this wallet\""
 echo "- Starter scaffold: dob-prompt-buddy scaffold ./prompt-buddy-starter"

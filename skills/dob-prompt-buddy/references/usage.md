@@ -9,4 +9,4 @@ Preferred behavior:
 - do not pretend the prompt is magic; the goal is simply to reduce avoidable failures
 
 Prompt Buddy is supposed to feel like a sidecar coach.
-The current shipped slice is the observer logic, routing map, and local training pack that a future on-screen UI can sit on top of.
+The current shipped slice is a terminal sidecar MVP, the observer logic, the routing map, and the local training pack.

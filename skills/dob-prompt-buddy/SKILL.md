@@ -11,4 +11,4 @@ Workflow:
 3. Point to the exact checklist or training file that fixes that mistake.
 4. Give a short nudge and, when helpful, a next-step prompt stub the user can send immediately.
 5. Escalate to a full rewrite only if the user actually needs one.
-6. If the user wants the local observer on disk, run `scripts/observe-prompt-buddy.py` or scaffold the starter with `scripts/scaffold-prompt-buddy.sh`.
+6. If the user wants the local observer on disk, run `scripts/observe-prompt-buddy.py`, `scripts/sidecar-prompt-buddy.py`, or scaffold the starter with `scripts/scaffold-prompt-buddy.sh`.

@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "DOB Prompt Buddy",
     "shortDescription": "Observer-style crypto prompt coach that catches vague asks before you waste a run.",
-    "longDescription": "Local observer and routing layer for crypto prompting. Prompt Buddy flags weak asks, points to the right checklist, and gives a better next-step stub without pretending to be a full on-screen pet UI yet.",
+    "longDescription": "Local observer and terminal sidecar/TUI for crypto prompting. Prompt Buddy flags weak asks, points to the right checklist, and gives a better next-step stub without pretending to be a desktop overlay.",
     "developerName": "Ben Ison",
     "category": "Productivity",
     "capabilities": [
