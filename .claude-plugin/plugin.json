@@ -1,7 +1,7 @@
 {
   "name": "dob-prompt-buddy",
-  "description": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
-  "version": "1.1.0",
+  "description": "Observer-style crypto prompt coach that catches weak asks and routes you to the right checklist before an agent wastes a run.",
+  "version": "1.2.0",
   "author": {
     "name": "Ben Ison",
     "email": "ben@dayonebuilder.online"

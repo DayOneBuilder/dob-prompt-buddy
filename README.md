@@ -1,6 +1,7 @@
 # DayOneBuilder Prompt Buddy by Ben Ison
 
-Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.
+Observer-style prompt coach for crypto work.
+It is supposed to feel like a sidecar companion that sits beside the user, notices when the prompt is slipping, and points them to the exact fix before an agent wastes a run.
 
 - Product page: https://dayonebuilder.online/products/prompt-buddy/
 - Direct bundle: https://dayonebuilder.online/downloads/dayonebuilder-prompt-buddy-starter.zip
@@ -9,6 +10,58 @@ Prompt-coaching skill for tightening crypto research prompts before you send the
 > Shorthand phrase: `Install dayonebuilder/dob-prompt-buddy by Ben Ison.`
 >
 > Treat that phrase as a convenience prompt, not as the only documented install contract.
+
+## What is shipped right now
+
+Prompt Buddy does **not** pretend to be a full graphical on-screen pet UI yet.
+
+The real shipped slice today is:
+- a local observer CLI that inspects a prompt
+- readable routing heuristics for common failure modes
+- a training pack with the exact checklists the observer should point at
+- a packaging layout that keeps it installable from agent workflows
+
+That means the product direction is now:
+- not a generic prompt rewrite bundle
+- not a big wall of prompt theory
+- a sidecar-style observer that intervenes only when needed
+
+## Quick start
+
+### Repo-local observer
+
+```bash
+bin/observe-prompt-buddy.sh "look at this wallet"
+```
+
+### Installed observer
+
+```bash
+dob-prompt-buddy observe "look at this wallet"
+```
+
+### Scaffold the starter pack
+
+```bash
+dob-prompt-buddy scaffold ./prompt-buddy-starter
+```
+
+## What the observer catches
+
+The current heuristics look for avoidable failures such as:
+- missing concrete goal or success criteria
+- missing output format
+- missing evidence or verification rules
+- missing chain / repo / environment context
+- giant ambiguous asks that should be split or planned first
+- execution requests that should start in plan mode
+
+The output is intentionally short:
+- severity
+- likely failure modes
+- one nudge
+- exact local training files to open next
+- a next-step prompt stub when useful
 
 ## The least noisy setup
 
@@ -52,6 +105,14 @@ What it does:
 - installs the same self-contained skill into `~/.claude/skills/`
 - installs a helper launcher into `~/.local/bin/dob-prompt-buddy`
 
+After install, these are the useful commands:
+
+```bash
+dob-prompt-buddy --help
+dob-prompt-buddy observe "review this token"
+dob-prompt-buddy scaffold ./prompt-buddy-starter
+```
+
 Personal uninstall:
 
 ```bash
@@ -65,11 +126,27 @@ The product has to work in three ways without surprise:
 2. **Claude plugin use** with `--plugin-dir .`
 3. **Optional standalone install** when you really want a personal global copy
 
-To make that work, the skill is self-contained under `skills/dob-prompt-buddy/`. The helper script and required files live with the skill instead of depending on a separate asset copy in `~/.dayonebuilder/`.
+To make that work, the skill is self-contained under `skills/dob-prompt-buddy/`. The observer CLI and training files live with the skill instead of depending on a second hidden asset copy.
+
+## Where the sidecar idea goes next
+
+The intended long-term shape is still a visible companion / sidecar that watches the user's normal prompting flow.
+
+This repo now gives that future UI something real to sit on top of:
+- intervention rules
+- routing logic
+- local training files
+- prompt stubs for common recovery paths
 
 ## Quick checks
 
-Repo-local helper:
+Repo-local observer:
+
+```bash
+bin/observe-prompt-buddy.sh "Analyze this wallet"
+```
+
+Repo-local starter scaffold:
 
 ```bash
 bin/scaffold-prompt-buddy.sh ./research/prompt-buddy

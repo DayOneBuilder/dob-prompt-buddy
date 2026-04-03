@@ -1,13 +1,14 @@
 ---
 name: dob-prompt-buddy
-description: Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.
+description: Observer-style crypto prompt coach that catches weak asks and routes the user to the right checklist before an agent wastes a run.
 ---
 
-Use this skill when the user has a weak crypto prompt and wants help turning it into a sharper request before sending it to an agent.
+Use this skill when the user is prompting normally and needs a sidecar-style intervention, not a long lecture.
 
 Workflow:
 1. Read `references/usage.md` first.
-2. Load only the relevant checklist from `references/checklists/`.
-3. Use `references/examples/weak-to-strong.md` when the user needs a rewrite pattern.
-4. If the user wants the local bundle files, run `scripts/scaffold-prompt-buddy.sh` inside the repo or inside the installed standalone skill.
-5. Keep the output practical: identify what is missing, why it matters, and provide a stronger prompt the user can send immediately.
+2. Identify the smallest likely failure mode.
+3. Point to the exact checklist or training file that fixes that mistake.
+4. Give a short nudge and, when helpful, a next-step prompt stub the user can send immediately.
+5. Escalate to a full rewrite only if the user actually needs one.
+6. If the user wants the local observer on disk, run `scripts/observe-prompt-buddy.py` or scaffold the starter with `scripts/scaffold-prompt-buddy.sh`.

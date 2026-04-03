@@ -1,7 +1,7 @@
 {
   "name": "dob-prompt-buddy",
-  "version": "1.1.0",
-  "description": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
+  "version": "1.2.0",
+  "description": "Observer-style crypto prompt coach that catches weak asks and routes you to the right checklist before an agent wastes a run.",
   "author": {
     "name": "Ben Ison",
     "email": "ben@dayonebuilder.online",
@@ -13,14 +13,14 @@
   "keywords": [
     "crypto",
     "prompts",
-    "prompt-coaching",
+    "prompt-observer",
     "research"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "DOB Prompt Buddy",
-    "shortDescription": "Prompt-coaching skill for tightening crypto research prompts before you send them to an agent.",
-    "longDescription": "Reusable crypto prompt-coaching skill with before-send checklists, weak-to-strong rewrites, and workflow-specific checks for token DD, wallet review, and yield scans.",
+    "shortDescription": "Observer-style crypto prompt coach that catches vague asks before you waste a run.",
+    "longDescription": "Local observer and routing layer for crypto prompting. Prompt Buddy flags weak asks, points to the right checklist, and gives a better next-step stub without pretending to be a full on-screen pet UI yet.",
     "developerName": "Ben Ison",
     "category": "Productivity",
     "capabilities": [
